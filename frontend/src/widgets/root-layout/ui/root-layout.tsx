@@ -10,11 +10,11 @@ export const RootLayout = () => {
     <>
       <header className="app-header">
         <span className="logo">TODOS</span>
-        <div className="aside">{isAuthenticated ? <Profile /> : <NavLinks />}</div>
+        <div className="aside">
+          {isAuthenticated ? <Profile /> : <NavLinks />}
+        </div>
       </header>
-      <main className="app-main">
-        <Outlet />
-      </main>
+      <Outlet />
     </>
   );
 };

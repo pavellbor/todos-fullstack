@@ -54,7 +54,10 @@ function verifyToken(token) {
 
 // Валидация данных
 function validateTodo(todo) {
-  if (!todo.title || !todo.description) {
+  if (!todo.title) {
+    return false;
+  }
+  if (todo.completed !== undefined && typeof todo.completed !== 'boolean') {
     return false;
   }
   return true;
@@ -192,10 +195,11 @@ const requestHandler = (req, res) => {
     // Обработка ресурсов
     if (pathname === '/api/todos' && method === 'GET') {
       const userTodos = Object.values(todos).filter(todo => todo.username === username);
+      const todosWithIds = userTodos.map(todo => ({ ...todo, id: todo.id })); // Добавляем id к задачам
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(userTodos));
+      res.end(JSON.stringify(todosWithIds));
     } else if (pathname.startsWith('/api/todos/') && method === 'GET') {
-      const todoId = pathname.split('/')[2];
+      const todoId = pathname.split('/')[3];
       if (todos[todoId] && todos[todoId].username === username) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(todos[todoId]));
@@ -211,11 +215,12 @@ const requestHandler = (req, res) => {
           const todo = JSON.parse(body);
           if (!validateTodo(todo)) {
             res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Необходимо указать заголовок и описание задачи' }));
+            res.end(JSON.stringify({ message: 'Необходимо указать заголовок задачи и значение completed (true/false)' }));
             return;
           }
           todo.username = username;
           const newTodoId = Date.now().toString();
+          todo.id = newTodoId; // Добавляем id к задаче
           todos[newTodoId] = todo;
           saveTodos();
           res.writeHead(201, { 'Content-Type': 'application/json' });
@@ -226,7 +231,7 @@ const requestHandler = (req, res) => {
         }
       });
     } else if (pathname.startsWith('/api/todos/') && method === 'PUT') {
-      const todoId = pathname.split('/')[2];
+      const todoId = pathname.split('/')[3];
       if (todos[todoId] && todos[todoId].username === username) {
         let body = '';
         req.on('data', (chunk) => { body += chunk; });
@@ -235,11 +240,10 @@ const requestHandler = (req, res) => {
             const todo = JSON.parse(body);
             if (!validateTodo(todo)) {
               res.writeHead(400, { 'Content-Type': 'application/json' });
-              res.end(JSON.stringify({ message: 'Необходимо указать заголовок и описание задачи' }));
+              res.end(JSON.stringify({ message: 'Необходимо указать заголовок задачи и значение completed (true/false)' }));
               return;
             }
-            todos[todoId] = todo;
-            todos[todoId].username = username;
+            todos[todoId] = {...todos[todoId], ...todo};
             saveTodos();
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ message: 'Задача обновлена' }));
@@ -253,7 +257,7 @@ const requestHandler = (req, res) => {
         res.end(JSON.stringify({ message: 'Задача не найдена' }));
       }
     } else if (pathname.startsWith('/api/todos/') && method === 'DELETE') {
-      const todoId = pathname.split('/')[2];
+      const todoId = pathname.split('/')[3];
       if (todos[todoId] && todos[todoId].username === username) {
         delete todos[todoId];
         saveTodos();

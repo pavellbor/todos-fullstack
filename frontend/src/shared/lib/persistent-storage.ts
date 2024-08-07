@@ -1,5 +1,5 @@
 export const persistentStorage = {
-  getItem: (key: string) => {
+  getItem: <T>(key: string): T | null => {
     const data = sessionStorage.getItem(key);
     return data ? JSON.parse(data) : null;
   },

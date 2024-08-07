@@ -1,8 +1,3 @@
-export type User = {
-  username: string;
-  token: string;
-};
-
 export type SignInUserData = {
   username: string;
   password: string;

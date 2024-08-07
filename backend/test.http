@@ -41,7 +41,7 @@ Content-Type: application/json
 
 {
   "title": "Новая задача",
-  "description": "Описание новой задачи"
+  "completed": false
 }
 
 #### Update Todo
@@ -51,7 +51,7 @@ Content-Type: application/json
 
 {
   "title": "Обновленная задача",
-  "description": "Обновленное описание"
+  "completed": true
 }
 
 #### Delete Todo
