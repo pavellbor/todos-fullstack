@@ -1,8 +1,8 @@
-import { Session, useSession } from "@/entities/session";
+import { Session, useSessionStore } from "@/entities/session";
 import { SignOutButton } from "@/features/sign-out/ui/sign-out-button";
 
 export const Profile = () => {
-  const { username } = useSession((s) => s.session) as Session;
+  const { username } = useSessionStore((s) => s.session) as Session;
 
   return (
     <div className="profile">

@@ -7,11 +7,14 @@ type TaskFilterStore = {
   setFilter: (filter: TaskFilterType) => void;
 };
 
-export const useTaskFilterStore = create<TaskFilterStore>()(
-  devtools((set) => ({
-    filter: "all",
-    setFilter: (filter) => {
-      set({ filter });
-    },
-  }))
+export const useTaskFilterStore = create(
+  devtools<TaskFilterStore>(
+    (set) => ({
+      filter: "all",
+      setFilter: (filter) => {
+        set({ filter }, undefined, { type: "setFilter", filter });
+      },
+    }),
+    { name: "taskFilter", store: "taskFilter" }
+  )
 );

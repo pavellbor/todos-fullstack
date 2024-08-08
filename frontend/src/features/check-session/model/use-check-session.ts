@@ -1,6 +1,6 @@
-import { useSession } from "@/entities/session";
+import { useSessionStore } from "@/entities/session";
 
 export const useCheckSession = () => {
-    const session = useSession((s) => s.session);
+    const session = useSessionStore((s) => s.session);
     return !!session;
   };

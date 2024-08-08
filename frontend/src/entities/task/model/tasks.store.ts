@@ -11,24 +11,27 @@ type TasksStore = {
   removeTask: (id: string) => void;
 };
 
-export const useTasksStore = create<TasksStore>()(
-  devtools((set, get) => ({
-    tasks: [],
-    loadTasks: async () => {
-      const tasks = await tasksApi.getTasks();
-      set({ tasks });
-    },
-    createTask: async (data) => {
-      await tasksApi.createTask(data);
-      get().loadTasks();
-    },
-    updateTask: async (id: string, data) => {
-      await tasksApi.updateTask(id, data);
-      get().loadTasks();
-    },
-    removeTask: async (id) => {
-      await tasksApi.removeTask(id);
-      get().loadTasks();
-    },
-  }))
+export const useTasksStore = create(
+  devtools<TasksStore>(
+    (set, get) => ({
+      tasks: [],
+      loadTasks: async () => {
+        const tasks = await tasksApi.getTasks();
+        set({ tasks }, undefined, { type: "loadTasks" });
+      },
+      createTask: async (data) => {
+        await tasksApi.createTask(data);
+        get().loadTasks();
+      },
+      updateTask: async (id: string, data) => {
+        await tasksApi.updateTask(id, data);
+        get().loadTasks();
+      },
+      removeTask: async (id) => {
+        await tasksApi.removeTask(id);
+        get().loadTasks();
+      },
+    }),
+    { name: "tasks", store: "tasks" }
+  )
 );
