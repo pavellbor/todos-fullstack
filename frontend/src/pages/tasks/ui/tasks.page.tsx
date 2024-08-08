@@ -1,6 +1,7 @@
 import { TaskFilter } from "./task-filter";
 import { TaskForm } from "./task-form";
 import { TaskList } from "./task-list";
+import { TaskStats } from "./task-stats";
 
 export const Tasks = () => {
   return (
@@ -13,7 +14,7 @@ export const Tasks = () => {
         <TaskForm />
       </main>
 
-      <footer className="app-footer">2 more to do, 1 done</footer>
+      <TaskStats />
     </>
   );
 };

@@ -1,7 +1,7 @@
-import { Task, useTasks } from "@/entities/task";
+import { Task, useTasksStore } from "@/entities/task";
 
 export const useToggleTask = () => {
-  const updateTask = useTasks((s) => s.updateTask);
+  const updateTask = useTasksStore((s) => s.updateTask);
 
   return (task: Task) => {
     const { id, title, completed } = task;

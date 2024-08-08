@@ -1,8 +1,8 @@
-import { Task, useTasks } from "@/entities/task"
+import { Task, useTasksStore } from "@/entities/task"
 import { useTaskFilterStore } from "./task-filter.store"
 
 export const useFilteredTasks = () => {
-    const tasks = useTasks(s => s.tasks)
+    const tasks = useTasksStore(s => s.tasks)
     const filter = useTaskFilterStore(s => s.filter)
 
     const filterCb = {

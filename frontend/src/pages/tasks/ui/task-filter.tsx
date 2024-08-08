@@ -1,8 +1,10 @@
+import { useTaskFilterStore } from "@/features/filter-tasks";
 import clsx from "clsx";
-import { useTaskFilterStore } from "../model/task-filter.store";
 
 export const TaskFilter = () => {
-  const { filter, setFilter } = useTaskFilterStore();
+  const filter = useTaskFilterStore(s => s.filter);
+  const setFilter = useTaskFilterStore(s => s.setFilter);
+
   const filters = [
     { key: "all", label: "All" },
     { key: "active", label: "Active" },

@@ -1,4 +1,4 @@
-import { useTasks } from "@/entities/task";
+import { useTasksStore } from "@/entities/task";
 import { TaskItem } from "./task-item";
 import { useToggleTask } from "@/features/toggle-task";
 import { useRemoveTask } from "@/features/remove-task";
@@ -10,8 +10,7 @@ export const TaskList = () => {
   const toggleTask = useToggleTask();
   const removeTask = useRemoveTask();
 
-
-  const loadTasks = useTasks((s) => s.loadTasks);
+  const loadTasks = useTasksStore((s) => s.loadTasks);
 
   useEffect(() => {
     loadTasks();

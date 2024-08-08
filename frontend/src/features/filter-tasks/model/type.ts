@@ -1,1 +1,1 @@
-export type TaskFilter = 'all' | 'active' | 'done'
+export type TaskFilterType = 'all' | 'active' | 'done'

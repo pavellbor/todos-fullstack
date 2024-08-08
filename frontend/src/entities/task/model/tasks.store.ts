@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { CreateTaskData, Task, UpdateTaskData } from "./task.type";
 import { tasksApi } from "../api";
+import { devtools } from "zustand/middleware";
 
 type TasksStore = {
   tasks: Task[];
@@ -10,22 +11,24 @@ type TasksStore = {
   removeTask: (id: string) => void;
 };
 
-export const useTasks = create<TasksStore>((set, get) => ({
-  tasks: [],
-  loadTasks: async () => {
-    const tasks = await tasksApi.getTasks();
-    set({ tasks });
-  },
-  createTask: async (data) => {
-    await tasksApi.createTask(data);
-    get().loadTasks();
-  },
-  updateTask: async (id: string, data) => {
-    await tasksApi.updateTask(id, data);
-    get().loadTasks();
-  },
-  removeTask: async (id) => {
-    await tasksApi.removeTask(id);
-    get().loadTasks();
-  },
-}));
+export const useTasksStore = create<TasksStore>()(
+  devtools((set, get) => ({
+    tasks: [],
+    loadTasks: async () => {
+      const tasks = await tasksApi.getTasks();
+      set({ tasks });
+    },
+    createTask: async (data) => {
+      await tasksApi.createTask(data);
+      get().loadTasks();
+    },
+    updateTask: async (id: string, data) => {
+      await tasksApi.updateTask(id, data);
+      get().loadTasks();
+    },
+    removeTask: async (id) => {
+      await tasksApi.removeTask(id);
+      get().loadTasks();
+    },
+  }))
+);
