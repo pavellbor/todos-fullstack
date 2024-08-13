@@ -44,7 +44,14 @@ export class HttpClient {
 
       try {
         const route = this.getRoute(req);
-        await route.handler(req, res)
+
+        if (route.middlewares?.length) {
+          for (const middleware of route.middlewares) {
+            await middleware(req, res);
+          }
+        }
+
+        await route.handler(req, res);
       } catch (error) {
         this.handleError(res, error);
       }

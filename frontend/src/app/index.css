@@ -318,10 +318,11 @@ button {
 
 .notification__text {
   padding: 5px;
-  color: rgba(0, 0, 0, 0.8)
+  font-size: 1.4rem;
+  color: var(--primary-color);
 }
 
 .notification__close-button {
   font-size: 20px;
-  color: var(--primary-color)
+  color: var(--primary-color);
 }

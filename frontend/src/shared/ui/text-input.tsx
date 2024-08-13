@@ -15,12 +15,14 @@ export const TextInput = ({
   onChange,
 }: TextInputProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(initialIsFocused);
+
   return (
     <div className={clsx("text-input", isFocused && "text-input--focus")}>
       <input
         value={value}
         className="input"
         placeholder={placeholder}
+        autoFocus={isFocused}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onChange={(e) => onChange(e.target.value)}

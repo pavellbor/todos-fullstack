@@ -45,7 +45,7 @@ export class TodoController extends HttpController {
 
   private async onCreate(req: Request, res: Response) {
     const { id: userId } = this.checkAuthorization(req);
-    const { title } = await this.parseBody<{ title: string }>(req);
+    const { title } = req.body as { title: string };
     const todo = this.todoService.create({
       title,
       userId,
@@ -56,9 +56,8 @@ export class TodoController extends HttpController {
 
   private async onUpdate(req: Request, res: Response) {
     const { todoId } = req.params;
-    console.log(todoId)
     const { id: userId } = this.checkAuthorization(req);
-    const { completed } = await this.parseBody<{ completed: boolean }>(req);
+    const { completed } = req.body as { completed: boolean };
     const updatedTodo = this.todoService.update({
       id: todoId,
       userId,

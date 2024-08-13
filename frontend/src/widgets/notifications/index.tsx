@@ -28,7 +28,11 @@ export const Notifications = ({ children }: { children: ReactNode }) => {
       {children}
       <div className="notifications">
         {notifications.map((x) => (
-          <Notification text={x.text} onClose={() => closeNotification(x.id)} />
+          <Notification
+            text={x.text}
+            onClose={() => closeNotification(x.id)}
+            key={x.id}
+          />
         ))}
       </div>
     </notificationContext.Provider>

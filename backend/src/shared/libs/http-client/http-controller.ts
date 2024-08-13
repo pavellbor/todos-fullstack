@@ -13,25 +13,6 @@ export class HttpController {
     this.routes.push(route);
   }
 
-  protected parseBody<T>(req: Request): Promise<T> {
-    return new Promise((resolve, reject) => {
-      let body = "";
-      req.on("data", (chunk) => {
-        body += chunk;
-      });
-      req.on("end", () => {
-        try {
-          const parsedBody = JSON.parse(body);
-          resolve(parsedBody);
-        } catch (err) {
-          reject(
-            new HttpError(StatusCodes.BAD_REQUEST, "Неверный формат данных")
-          );
-        }
-      });
-    });
-  }
-
   protected sendResponse(
     res: Response,
     statusCode: StatusCodes,

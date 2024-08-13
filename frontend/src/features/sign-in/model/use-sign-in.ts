@@ -10,7 +10,6 @@ export const useSignIn = () => {
     try {
       const { token } = await userApi.signIn(data);
       apiClient.setToken(token)
-      console.log(apiClient)
       createSession({ username: data.username, token });
     } catch (err: unknown) {
       if (isApiError(err))  {
