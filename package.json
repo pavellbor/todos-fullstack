@@ -2,11 +2,14 @@
   "name": "todos",
   "version": "1.0.0",
   "scripts": {
-    "client": "cd frontend && npm run dev",
-    "server": "cd backend && npm run dev",
-    "start": "concurrently \"npm run client\" \"npm run server\" "
+    "client:start": "cd frontend && npm run dev",
+    "server:start": "cd backend && npm run dev",
+    "start": "concurrently \"npm run client:start\" \"npm run server:start\" "
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
