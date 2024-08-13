@@ -1,0 +1,12 @@
+{
+  "name": "todos",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "cd frontend && npm run dev",
+    "server": "cd backend && npm run dev",
+    "start": "concurrently \"npm run client\" \"npm run server\" "
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

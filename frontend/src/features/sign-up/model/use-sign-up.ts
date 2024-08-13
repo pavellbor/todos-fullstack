@@ -1,6 +1,6 @@
 import { useSessionStore } from "@/entities/session";
 import { SignUpUserData, userApi } from "@/entities/user";
-import { isApiError } from "@/shared/lib/api-client";
+import { apiClient, isApiError } from "@/shared/lib/api-client";
 import { useNotification } from "@/shared/lib/notification";
 
 export const useSignUp = () => {
@@ -10,6 +10,7 @@ export const useSignUp = () => {
     try {
       const { token } = await userApi.signUp(data);
       createSession({ username: data.username, token });
+      apiClient.setToken(token)
     } catch (err) {
       if (isApiError(err)) {
         showNotification(err.response?.data?.message);
