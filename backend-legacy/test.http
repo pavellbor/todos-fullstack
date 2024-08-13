@@ -1,0 +1,58 @@
+#token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWF0IjoxNjg2MjU4NzE2LCJleHAiOjE2ODYyNjIzMTYyfQ.v4a-hG7o53u0f_1Z5uW533sJ1h4N5W7N0
+
+### Authentication
+
+#### Register
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpassword"
+}
+
+#### Login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpassword"
+}
+
+#### Verify Token
+POST http://localhost:3000/verify
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjMzMTU0NzZ9.PwDBrb41Uv97MbASmtJmiOlVig-yhDmR4i6mUVDd9w4
+
+### Todos
+
+#### Get All Todos
+GET http://localhost:3000/api/todos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjM1MjczNDV9.ST0F_KYG2ctSxjj39G40ecBt3LZ8fbiSyidYBToY_4w
+
+#### Get Todo by Id
+GET http://localhost:3000/api/todos/1723527467037
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjM1MjczNDV9.ST0F_KYG2ctSxjj39G40ecBt3LZ8fbiSyidYBToY_4w
+
+#### Create New Todo
+POST http://localhost:3000/api/todos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjM1MjczNDV9.ST0F_KYG2ctSxjj39G40ecBt3LZ8fbiSyidYBToY_4w
+Content-Type: application/json
+
+{
+  "title": "Новая задача 2"
+}
+
+#### Update Todo
+PUT http://localhost:3000/api/todos/1723527495126
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjM1MjczNDV9.ST0F_KYG2ctSxjj39G40ecBt3LZ8fbiSyidYBToY_4w
+Content-Type: application/json
+
+{
+  "title": "Обновленная задача",
+  "completed": true
+}
+
+#### Delete Todo
+DELETE http://localhost:3000/api/todos/1723527467037
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjM1MjczNDV9.ST0F_KYG2ctSxjj39G40ecBt3LZ8fbiSyidYBToY_4w
