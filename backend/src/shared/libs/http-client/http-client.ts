@@ -1,5 +1,5 @@
 import http, { Server } from "node:http";
-import { Request, Response, Route } from "./http-client.types";
+import { Middleware, Request, Response, Route } from "./http-client.types";
 import { HttpController } from "./http-controller";
 import url from "node:url";
 import { HttpError } from "./http-client.errors";
@@ -8,9 +8,14 @@ import { StatusCodes } from "http-status-codes";
 export class HttpClient {
   private server: Server;
   private routesMap: Record<string, Route> = {};
+  private middlewares: Middleware[];
 
   constructor() {
     this.server = http.createServer();
+  }
+
+  public registerGlobalMiddlewares(middlewares: Middleware[]) {
+    this.middlewares = middlewares;
   }
 
   public registerController(controller: HttpController) {
@@ -34,37 +39,16 @@ export class HttpClient {
 
   private async setListeners() {
     this.server.on("request", async (req: Request, res: Response) => {
-      this.setCORSHeaders(req, res);
-
-      if (req.method === "OPTIONS") {
-        res.writeHead(204);
-        res.end();
-        return;
-      }
-
       try {
+        await this.execMiddlewares(this.middlewares, req, res);
         const route = this.getRoute(req);
 
-        if (route.middlewares?.length) {
-          for (const middleware of route.middlewares) {
-            await middleware(req, res);
-          }
-        }
-
+        await this.execMiddlewares(route.middlewares, req, res);
         await route.handler(req, res);
       } catch (error) {
         this.handleError(res, error);
       }
     });
-  }
-
-  private setCORSHeaders(req: Request, res: Response) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
   }
 
   private getRoute(req: Request): Route {
@@ -111,16 +95,20 @@ export class HttpClient {
   }
 
   private handleError(res: Response, error: unknown) {
-    console.error(error);
-
     if (error instanceof HttpError) {
       this.sendResponse(res, error.statusCode, {
         message: error.message,
       });
+
+      if (error.statusCode !== StatusCodes.NO_CONTENT) {
+        console.error(error);
+      }
     } else {
       this.sendResponse(res, StatusCodes.INTERNAL_SERVER_ERROR, {
         message: "Неизвестная ошибка. Попробуйте позже",
       });
+
+      console.error(error);
     }
   }
 
@@ -133,6 +121,16 @@ export class HttpClient {
       res.end(JSON.stringify(data));
     } else {
       res.end();
+    }
+  }
+
+  private async execMiddlewares(
+    middlewares: Middleware[] = [],
+    req: Request,
+    res: Response
+  ) {
+    for (const middleware of middlewares) {
+      await middleware(req, res);
     }
   }
 }

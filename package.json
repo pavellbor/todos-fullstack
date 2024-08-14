@@ -2,9 +2,14 @@
   "name": "todos",
   "version": "1.0.0",
   "scripts": {
-    "client:start": "cd frontend && npm run dev",
-    "server:start": "cd backend && npm run dev",
-    "start": "concurrently \"npm run client:start\" \"npm run server:start\" "
+    "dev": "concurrently \"npm run client:dev\" \"npm run server:dev\" ",
+    "client:dev": "cd frontend && npm run dev",
+    "server:dev": "cd backend && npm run dev",
+    "start": "npm run build && npm run server:start",
+    "server:start": "cd backend && npm run start",
+    "build": "concurrently \"npm run client:build\" \"npm run server:build\" ",
+    "client:build": "cd frontend && npm run build",
+    "server:build": "cd backend && npm run build"
   },
   "author": "",
   "license": "ISC",

@@ -1,9 +1,13 @@
 import { StatusCodes } from "http-status-codes";
 import { HttpError } from "./http-client.errors";
-import { Request } from "./http-client.types";
+import { Request, Response } from "./http-client.types";
 
-export const parseBodyMiddleware = (req: Request): Promise<void> => {
-  return new Promise((resolve, reject) => {
+export const parseBodyMiddleware = async (req: Request) => {
+  if (req.method === "GET" || req.method === "DELETE") {
+    return;
+  }
+
+  return new Promise<void>((resolve, reject) => {
     let body = "";
     req.on("data", (chunk) => {
       body += chunk;
@@ -30,4 +34,17 @@ export const parseBodyMiddleware = (req: Request): Promise<void> => {
       }
     });
   });
+};
+
+export const setCORSHeadersMiddleware = async (req: Request, res: Response) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (req.method === "OPTIONS") {
+    throw new HttpError(StatusCodes.NO_CONTENT);
+  }
 };

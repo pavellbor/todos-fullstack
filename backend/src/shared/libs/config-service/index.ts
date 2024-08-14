@@ -12,7 +12,7 @@ export class ConfigService<T extends NodeJS.ProcessEnv> {
 
     if (!value) {
       throw new Error(
-        `Переменная окружения с ключом ${key.toString()} не заданач`
+        `Переменная окружения с ключом ${key.toString()} не задана`
       );
     }
 

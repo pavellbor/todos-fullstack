@@ -1,13 +1,15 @@
 import { StatusCodes } from "http-status-codes";
 import {
   HttpController,
-  parseBodyMiddleware,
   Request,
   Response,
 } from "../../shared/libs/http-client";
 import { UserService } from "../user/user.service";
 import { TodoService } from "./todo.service";
-import { createParseUserMiddleware, validateCreateTodoBodyMiddleware } from "./todo.middleware";
+import {
+  createParseUserMiddleware,
+  validateCreateTodoBodyMiddleware,
+} from "./todo.middleware";
 import { User } from "../user";
 
 export class TodoController extends HttpController {
@@ -31,13 +33,13 @@ export class TodoController extends HttpController {
       pathname: "/api/todos",
       method: "POST",
       handler: this.onCreate.bind(this),
-      middlewares: [parseBodyMiddleware, parseUserMiddleware, validateCreateTodoBodyMiddleware],
+      middlewares: [parseUserMiddleware, validateCreateTodoBodyMiddleware],
     });
     this.registerRoute({
       pathname: "/api/todos/:todoId",
       method: "PATCH",
       handler: this.onUpdate.bind(this),
-      middlewares: [parseBodyMiddleware, parseUserMiddleware],
+      middlewares: [parseUserMiddleware],
     });
     this.registerRoute({
       pathname: "/api/todos/:todoId",

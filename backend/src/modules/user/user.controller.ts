@@ -2,11 +2,13 @@ import { UserService } from "./user.service";
 import { StatusCodes } from "http-status-codes";
 import {
   HttpController,
-  parseBodyMiddleware,
   Request,
   Response,
 } from "../../shared/libs/http-client";
-import { validateLoginBodyMiddleware, validateRegisterBodyMiddleware } from "./user.middlewares";
+import {
+  validateLoginBodyMiddleware,
+  validateRegisterBodyMiddleware,
+} from "./user.middlewares";
 
 export class UserController extends HttpController {
   constructor(private readonly userService: UserService) {
@@ -16,13 +18,13 @@ export class UserController extends HttpController {
       pathname: "/login",
       method: "POST",
       handler: this.onLogin.bind(this),
-      middlewares: [parseBodyMiddleware, validateLoginBodyMiddleware],
+      middlewares: [validateLoginBodyMiddleware],
     });
     this.registerRoute({
       pathname: "/register",
       method: "POST",
       handler: this.onRegister.bind(this),
-      middlewares: [parseBodyMiddleware, validateRegisterBodyMiddleware],
+      middlewares: [validateRegisterBodyMiddleware],
     });
     this.registerRoute({
       pathname: "/verify",
