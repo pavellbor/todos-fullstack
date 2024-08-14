@@ -10,7 +10,7 @@ export const tasksApi = {
     return response;
   },
   async updateTask(id: string, data: UpdateTaskData) {
-    const { data: response } = await apiClient.put<{ message: string }>(
+    const { data: response } = await apiClient.patch<{ message: string }>(
       `/api/todos/${id}`,
       data
     );

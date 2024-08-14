@@ -5,7 +5,10 @@ export const validateRegisterBodyMiddleware = async (
   req: Request,
   res: Response
 ) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body as {
+    username: string;
+    password: string;
+  };
 
   if (!username) {
     throw new HttpError(
@@ -15,10 +18,7 @@ export const validateRegisterBodyMiddleware = async (
   }
 
   if (!password) {
-    throw new HttpError(
-      StatusCodes.BAD_REQUEST,
-      "Пароль не может быть пустым"
-    );
+    throw new HttpError(StatusCodes.BAD_REQUEST, "Пароль не может быть пустым");
   }
 
   if (username.length < 3) {
@@ -40,7 +40,10 @@ export const validateLoginBodyMiddleware = async (
   req: Request,
   res: Response
 ) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body as {
+    username: string;
+    password: string;
+  };
 
   if (!username) {
     throw new HttpError(
@@ -50,9 +53,6 @@ export const validateLoginBodyMiddleware = async (
   }
 
   if (!password) {
-    throw new HttpError(
-      StatusCodes.BAD_REQUEST,
-      "Пароль не может быть пустым"
-    );
+    throw new HttpError(StatusCodes.BAD_REQUEST, "Пароль не может быть пустым");
   }
 };

@@ -9,6 +9,7 @@ import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
 import { User, TokenPayload, UserConfigSchema } from "./user.types";
 import { ConfigService } from "../../shared/libs/config-service";
+export { VerifyRdo, User } from "./user.types";
 
 export const createUserService = () => {
   const configService = new ConfigService<UserConfigSchema>();
