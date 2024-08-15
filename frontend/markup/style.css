@@ -3,6 +3,7 @@
 
 :root {
   --primary-color: #e30808;
+  --primary-light-color: rgb(227 8 8 / 20%);
   --secondary-color: #e3e3e3;
   --light-color: #f0f0f0;
   --reverse-color: #ffffff;
@@ -21,6 +22,15 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 1.6rem;
   color: var(--default-color);
+}
+
+*:focus {
+  outline-color: var(--primary-light-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
 }
 
 button {
@@ -51,7 +61,7 @@ button {
   background-color: var(--primary-color);
 }
 
-#app {
+#root {
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
@@ -101,7 +111,7 @@ button {
 }
 
 .text-input--focus {
-  border: 0.2rem solid var(--primary-color);
+  border: 0.2rem solid var(--primary-light-color);
 }
 
 .text-input .input {
@@ -281,6 +291,7 @@ button {
 .profile {
   display: flex;
   align-items: center;
+  color: var(--primary-color);
 }
 
 .profile__name {
@@ -303,16 +314,18 @@ button {
 .notification {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   padding: 10px;
   width: 300px;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.8);
-  border: 0.1rem solid var(--primary-color);
+  border: 0.1rem solid var(--primary-light-color);
 }
 
 .notification__text {
   padding: 9px;
-  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.4rem;
+  color: var(--primary-color);
 }
 
 .notification__close-button {

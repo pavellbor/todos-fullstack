@@ -15,19 +15,19 @@ export class UserController extends HttpController {
     super();
 
     this.registerRoute({
-      pathname: "/login",
+      pathname: "/api/login",
       method: "POST",
       handler: this.onLogin.bind(this),
       middlewares: [validateLoginBodyMiddleware],
     });
     this.registerRoute({
-      pathname: "/register",
+      pathname: "/api/register",
       method: "POST",
       handler: this.onRegister.bind(this),
       middlewares: [validateRegisterBodyMiddleware],
     });
     this.registerRoute({
-      pathname: "/verify",
+      pathname: "/api/verify",
       method: "POST",
       handler: this.onVerify.bind(this),
     });

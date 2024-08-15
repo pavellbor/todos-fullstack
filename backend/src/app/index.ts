@@ -1,8 +1,7 @@
-import { HttpClient, parseBodyMiddleware } from "../shared/libs/http-client";
+import { HttpClient, parseBodyMiddleware, setCORSHeadersMiddleware } from "../shared/libs/http-client";
 import { createUserController, createUserService } from "../modules/user";
 import { ConfigService } from "../shared/libs/config-service";
 import { createTodoController } from "../modules/todo";
-import { setCORSHeadersMiddleware } from "../shared/libs/http-client/http-client.middlewares";
 
 const bootsrap = () => {
   const configService = new ConfigService<{ PORT: string }>();
