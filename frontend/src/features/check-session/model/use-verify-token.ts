@@ -1,10 +1,10 @@
 import { sessionRepository, useSessionStore } from "@/entities/session";
 import { userApi } from "@/entities/user";
 import { apiClient } from "@/shared/lib/api-client";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 export const useVerifyToken = () => {
-  const session = sessionRepository.getSession();
+  const session = useMemo(() => sessionRepository.getSession(), []);
   const createSession = useSessionStore((s) => s.createSession);
 
   if (session) {

@@ -68,6 +68,29 @@ button {
   width: 34rem;
 }
 
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  animation: fadeEnter 0.9s ease-in-out;
+}
+
+@keyframes fadeEnter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .app-header {
   display: flex;
   justify-content: center;
@@ -170,6 +193,7 @@ button {
   border-radius: 1.6rem;
   transition: box-shadow 0.2s;
   cursor: pointer;
+  animation: fadeEnter 300ms ease-in-out;
 }
 
 .todo-item:hover {
@@ -320,6 +344,7 @@ button {
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.8);
   border: 0.1rem solid var(--primary-light-color);
+  animation: fadeEnter 300ms ease-in-out;
 }
 
 .notification__text {

@@ -12,6 +12,10 @@ export class FileManager<T> {
   }
 
   public read(): T | null {
+    if (!fs.existsSync(this.file)) {
+      return null
+    }
+    
     const stringifiedData = fs.readFileSync(this.file, this.encoding);
     if (!stringifiedData) {
       return null;

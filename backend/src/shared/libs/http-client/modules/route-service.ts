@@ -5,11 +5,9 @@ import { HttpError } from "../http-client.errors";
 import { MiddlewareService } from "./middleware-service";
 
 export class RouteService {
-  private readonly middlewareService: MiddlewareService;
   private readonly routesMap: Record<string, Route>;
 
   constructor() {
-    this.middlewareService = new MiddlewareService();
     this.routesMap = {};
   }
 
@@ -38,10 +36,13 @@ export class RouteService {
 
   private async handleRoute(req: Request, res: Response, route: Route) {
     if (route.middlewares) {
+      const middlewareService = new MiddlewareService();
+
       route.middlewares.forEach((middleware) =>
-        this.middlewareService.registerMiddleware(middleware)
+        middlewareService.registerMiddleware(middleware)
       );
-      await this.middlewareService.execMiddlewares(req, res);
+
+      await middlewareService.execMiddlewares(req, res);
     }
 
     await route.handler(req, res);
