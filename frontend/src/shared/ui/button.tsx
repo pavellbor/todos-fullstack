@@ -1,10 +1,12 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
 
-type ButtonProps = {
+type ButtonProps = React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+> & {
   icon?: string;
   text?: ReactNode;
-  className?: string;
   isFilled?: boolean;
   onClick?: () => void;
 };
@@ -14,6 +16,7 @@ export const Button = ({
   isFilled,
   className,
   text,
+  type,
   onClick,
 }: ButtonProps) => {
   return (
@@ -21,9 +24,10 @@ export const Button = ({
       className={clsx("button", className, {
         "button--filled": isFilled,
       })}
+      type={type}
       onClick={() => onClick?.()}
     >
-      {icon && <i className={clsx("bi", icon)}></i>}
+      {icon && <i className={icon}></i>}
       {text}
     </button>
   );

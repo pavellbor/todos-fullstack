@@ -53,7 +53,7 @@ export class TodoController extends HttpController {
     const { id: userId } = req.user as User;
     const todos = this.todoService.getAll({ userId });
 
-    this.sendResponse(res, StatusCodes.OK, todos);
+    this.sendResponse(res, { statusCode: StatusCodes.OK, data: todos });
   }
 
   private async onCreate(req: Request, res: Response) {
@@ -64,7 +64,7 @@ export class TodoController extends HttpController {
       userId,
     });
 
-    this.sendResponse(res, StatusCodes.CREATED, todo);
+    this.sendResponse(res, { statusCode: StatusCodes.CREATED, data: todo });
   }
 
   private async onUpdate(req: Request, res: Response) {
@@ -77,12 +77,12 @@ export class TodoController extends HttpController {
       completed,
     });
 
-    this.sendResponse(res, StatusCodes.OK, updatedTodo);
+    this.sendResponse(res, { statusCode: StatusCodes.OK, data: updatedTodo });
   }
 
   private async onRemove(req: Request, res: Response) {
     const { todoId } = req.params;
     this.todoService.remove({ id: todoId });
-    this.sendResponse(res, StatusCodes.NO_CONTENT);
+    this.sendResponse(res, { statusCode: StatusCodes.NO_CONTENT });
   }
 }

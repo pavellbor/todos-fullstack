@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { Request, Response, Route } from "./http-client.types";
+import { ContentType, Request, Response, Route } from "./http-client.types";
 import { HttpError } from "./http-client.errors";
 
 export class HttpController {
@@ -15,15 +15,22 @@ export class HttpController {
 
   protected sendResponse(
     res: Response,
-    statusCode: StatusCodes,
-    data?: object
+    {
+      statusCode,
+      contentType = "application/json",
+      data,
+    }: {
+      statusCode: StatusCodes;
+      contentType?: ContentType;
+      data?: object;
+    }
   ) {
     res.writeHead(statusCode, {
-      "Content-Type": "application/json",
+      "Content-Type": contentType,
     });
 
     if (data) {
-      res.end(JSON.stringify(data));
+      res.end(contentType === "application/json" ? JSON.stringify(data) : data);
     } else {
       res.end();
     }

@@ -1,4 +1,6 @@
 import { useAddTask } from "@/features/add-task";
+import { Button } from "@/shared/ui/button";
+import { TextInput } from "@/shared/ui/text-input";
 import { useState } from "react";
 
 export const TaskForm = () => {
@@ -11,12 +13,11 @@ export const TaskForm = () => {
   return (
     <section className="add-todo">
       {!isFormVisible && (
-        <button
+        <Button
           className="add-todo__show-form-button"
+          icon="bi bi-plus-lg"
           onClick={() => setIsFormVisible(true)}
-        >
-          <i className="bi bi-plus-lg"></i>
-        </button>
+        />
       )}
       {isFormVisible && (
         <form
@@ -27,21 +28,18 @@ export const TaskForm = () => {
             setFormData({ title: "" });
           }}
         >
-          <button
+          <Button
             className="close-button"
             type="button"
+            icon="bi bi-x"
             onClick={() => setIsFormVisible(false)}
-          >
-            <i className="bi bi-x"></i>
-          </button>
-          <div className="text-input text-input--focus">
-            <input
-              className="input"
-              value={formData.title}
-              onChange={(e) => setFormData({ title: e.target.value })}
-            />
-          </div>
-          <button className="button button--filled">Add task</button>
+          />
+          <TextInput
+            value={formData.title}
+            onChange={(title) => setFormData({ title })}
+            isFocused
+          />
+          <Button text="Add task" isFilled />
         </form>
       )}
     </section>

@@ -8,7 +8,7 @@ export const Profile = () => {
     <div className="profile">
       <span className="profile__name">{username}</span>
       <SignOutButton
-        icon="bi-box-arrow-right"
+        icon="bi bi-box-arrow-right"
         className="profile__logout-button"
       />
     </div>

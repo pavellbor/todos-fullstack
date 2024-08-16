@@ -4,24 +4,24 @@ import { CreateTaskData, Task, UpdateTaskData } from "../model/task.type";
 export const tasksApi = {
   async createTask(data: CreateTaskData) {
     const { data: response } = await apiClient.post<{ id: string }>(
-      "/api/todos",
+      "/todos",
       data
     );
     return response;
   },
   async updateTask(id: string, data: UpdateTaskData) {
     const { data: response } = await apiClient.patch<{ message: string }>(
-      `/api/todos/${id}`,
+      `/todos/${id}`,
       data
     );
     return response;
   },
   async removeTask(id: string) {
-    const { data: response } = await apiClient.delete(`/api/todos/${id}`);
+    const { data: response } = await apiClient.delete(`/todos/${id}`);
     return response;
   },
   async getTasks() {
-    const { data: response } = await apiClient.get<Task[]>("/api/todos");
+    const { data: response } = await apiClient.get<Task[]>("/todos");
     return response;
   },
 };

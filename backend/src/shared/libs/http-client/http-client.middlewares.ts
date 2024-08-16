@@ -1,6 +1,8 @@
 import { StatusCodes } from "http-status-codes";
-import { HttpError } from "./http-client.errors";
+import { HttpError, HttpException } from "./http-client.errors";
 import { Request, Response } from "./http-client.types";
+import path from "node:path";
+import fs from "node:fs";
 
 export const parseBodyMiddleware = async (req: Request) => {
   if (req.method === "GET" || req.method === "DELETE") {
@@ -45,6 +47,42 @@ export const setCORSHeadersMiddleware = async (req: Request, res: Response) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
   if (req.method === "OPTIONS") {
-    throw new HttpError(StatusCodes.NO_CONTENT);
+    throw new HttpException(StatusCodes.NO_CONTENT);
   }
+};
+
+export const createReturnStaticFilesMiddleware = (publicDir: string) => {
+  return async (req: Request, res: Response) => {
+    if (req.method !== "GET") {
+      return;
+    }
+
+    const filePath = path.join(publicDir, req.url!.slice(1));
+    const ext = path.extname(filePath);
+
+    const contentType = (
+      {
+        ".html": "text/html",
+        ".css": "text/css",
+        ".js": "application/javascript",
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".svg": "image/svg+xml",
+      } as const
+    )[ext];
+
+    if (!contentType) {
+      return;
+    }
+
+    await new Promise((resolve, reject) =>
+      fs.readFile(filePath, (err, data) => {
+        if (err) {
+          reject(new HttpError(StatusCodes.NOT_FOUND, "Файл не найден"));
+        }
+
+        reject(new HttpException(StatusCodes.OK, contentType, data));
+      })
+    );
+  };
 };

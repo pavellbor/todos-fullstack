@@ -1,7 +1,7 @@
 ### Authentication
 
 #### Register
-POST http://localhost:3000/register
+POST http://localhost:3000/api/register
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 #### Login
-POST http://localhost:3000/login
+POST http://localhost:3000/api/login
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 #### Verify Token
-POST http://localhost:3000/verify
+POST http://localhost:3000/api/verify
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjMzMTU0NzZ9.PwDBrb41Uv97MbASmtJmiOlVig-yhDmR4i6mUVDd9w4
 
 ### Todos
@@ -28,17 +28,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxN
 GET http://localhost:3000/api/todos
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjM1MjczNDV9.ST0F_KYG2ctSxjj39G40ecBt3LZ8fbiSyidYBToY_4w
 
-#### Get Todo by Id
-GET http://localhost:3000/api/todos/1723527467037
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjM1MjczNDV9.ST0F_KYG2ctSxjj39G40ecBt3LZ8fbiSyidYBToY_4w
-
 #### Create New Todo
 POST http://localhost:3000/api/todos
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MjMzMTAxNTc0NDgiLCJpYXQiOjE3MjM1MjczNDV9.ST0F_KYG2ctSxjj39G40ecBt3LZ8fbiSyidYBToY_4w
 Content-Type: application/json
 
 {
-  "title": "Новая задача 2"
+  "title": "Новая задача"
 }
 
 #### Update Todo

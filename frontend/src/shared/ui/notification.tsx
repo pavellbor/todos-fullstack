@@ -12,7 +12,7 @@ export const Notification = ({
       <span className="notification__text">{text}</span>
       <Button
         className="notification__close-button"
-        icon="bi-x"
+        icon="bi bi-x"
         onClick={onClose}
       />
     </div>

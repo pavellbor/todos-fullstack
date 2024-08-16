@@ -40,7 +40,7 @@ export class UserController extends HttpController {
     };
     const data = this.userService.login({ username, password });
 
-    this.sendResponse(res, StatusCodes.OK, data);
+    this.sendResponse(res, { statusCode: StatusCodes.OK, data });
   }
 
   private async onRegister(req: Request, res: Response) {
@@ -50,13 +50,16 @@ export class UserController extends HttpController {
     };
     const data = this.userService.register({ username, password });
 
-    this.sendResponse(res, StatusCodes.CREATED, data);
+    this.sendResponse(res, { statusCode: StatusCodes.CREATED, data });
   }
 
   private async onVerify(req: Request, res: Response) {
     const token = this.getAuthorizatonToken(req);
     const user = this.userService.verify({ token });
 
-    this.sendResponse(res, StatusCodes.OK, { username: user.username });
+    this.sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      data: { username: user.username },
+    });
   }
 }
