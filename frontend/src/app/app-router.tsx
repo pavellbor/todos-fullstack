@@ -1,14 +1,10 @@
-import { AnonymousRoute, PrivateRoute } from "@/features/check-session";
-import { SignIn } from "@/pages/sign-in";
-import { SignUp } from "@/pages/sign-up";
-import { Tasks } from "@/pages/tasks";
-import { ROUTER_PATHS } from "@/shared/constants/routes";
-import { RootLayout } from "@/widgets/root-layout";
-import {
-  createBrowserRouter,
-  redirect,
-  RouterProvider,
-} from "react-router-dom";
+import { AnonymousRoute, PrivateRoute } from '@/features/check-session'
+import { SignIn } from '@/pages/sign-in'
+import { SignUp } from '@/pages/sign-up'
+import { Tasks } from '@/pages/tasks'
+import { ROUTER_PATHS } from '@/shared/constants/routes'
+import { RootLayout } from '@/widgets/root-layout'
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {
@@ -16,7 +12,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: "",
+        path: '',
         loader: () => redirect(ROUTER_PATHS.TASKS),
       },
       {
@@ -33,6 +29,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-]);
+])
 
-export const AppRouter = () => <RouterProvider router={router} />;
+export const AppRouter = () => <RouterProvider router={router} />

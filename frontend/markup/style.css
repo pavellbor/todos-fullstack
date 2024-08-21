@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
 :root {
   --primary-color: #e30808;
@@ -18,7 +18,7 @@ body {
   justify-content: center;
   margin: 0;
   padding: 6.4rem 1.2rem;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.6rem;
   color: var(--default-color);
 }
@@ -147,12 +147,16 @@ button {
   border: none;
 }
 
+.text-input .input::placeholder {
+  color: var(--light-color);
+}
+
 .text-input .input:focus {
   outline: none;
 }
 
 .text-input--search::after {
-  content: "\F52A";
+  content: '\F52A';
   font-family: bootstrap-icons !important;
   font-size: 1.7rem;
   color: var(--primary-color);
@@ -346,7 +350,7 @@ button {
 }
 
 .profile__logout-button {
-  color: var(--dark-color);
+  color: var(--default-color);
 }
 
 .notifications {

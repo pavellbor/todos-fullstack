@@ -1,14 +1,13 @@
-import { createStrictContext, useStrictContext } from "./react";
+import { createStrictContext, useStrictContext } from './react'
 
 export type NotificationContextParams = {
-  showNotification: (text: string) => void;
-};
+  showNotification: (text: string) => void
+}
 
-export const notificationContext =
-  createStrictContext<NotificationContextParams>();
+export const notificationContext = createStrictContext<NotificationContextParams>()
 
 export const useNotification = () => {
-  const { showNotification } = useStrictContext(notificationContext);
+  const { showNotification } = useStrictContext(notificationContext)
 
-  return { showNotification };
-};
+  return { showNotification }
+}

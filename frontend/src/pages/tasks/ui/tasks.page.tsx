@@ -1,14 +1,14 @@
-import { TaskFilter } from "./task-filter";
-import { TaskForm } from "./task-form";
-import { TaskList } from "./task-list";
-import { TaskStats } from "./task-stats";
+import { TaskFilter } from './task-filter'
+import { TaskForm } from './task-form'
+import { TaskList } from './task-list'
+import { TaskStats } from './task-stats'
 
 export const Tasks = () => {
   return (
     <>
       <TaskFilter />
 
-      <main className="app-main">
+      <main className='app-main'>
         <TaskList />
 
         <TaskForm />
@@ -16,5 +16,5 @@ export const Tasks = () => {
 
       <TaskStats />
     </>
-  );
-};
+  )
+}

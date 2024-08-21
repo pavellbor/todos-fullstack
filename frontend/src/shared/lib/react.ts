@@ -1,15 +1,15 @@
-import { Context, createContext, useContext } from "react";
+import { Context, createContext, useContext } from 'react'
 
 export const createStrictContext = <T>() => {
-  return createContext<T | null>(null);
-};
+  return createContext<T | null>(null)
+}
 
 export const useStrictContext = <T>(context: Context<T | null>) => {
-  const value = useContext(context);
+  const value = useContext(context)
 
   if (value === null) {
-    throw new Error("Strict context not passed");
+    throw new Error('Strict context not passed')
   }
 
-  return value;
-};
+  return value
+}

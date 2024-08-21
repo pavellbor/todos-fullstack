@@ -12,17 +12,15 @@
     "client:build": "cd frontend && rimraf dist && npm run build",
     "server:build": "cd backend && rimraf build && npm run build",
     "start": "npm run build && npm run server:start",
-    "server:start": "cd backend && npm run start"
+    "server:start": "cd backend && npm run start",
+    "prettier": "npx prettier . --write"
   },
-  "pre-commit": [
-    "build"
-  ],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "pre-commit": "^1.2.2",
+    "prettier": "3.3.3",
     "rimraf": "^6.0.1"
   }
 }

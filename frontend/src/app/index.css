@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
 :root {
   --primary-color: #e30808;
   --primary-light-color: rgb(227 8 8 / 20%);
-  --secondary-color: #e3e3e3;
+  --secondary-color: #d1d1d1;
   --light-color: #f0f0f0;
   --reverse-color: #ffffff;
   --default-color: #000000;
@@ -17,9 +17,10 @@ body {
   display: flex;
   justify-content: center;
   margin: 0;
-  padding: 6.4rem 1.2rem;
-  font-family: "Roboto", sans-serif;
+  padding: 10rem 1.2rem;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.6rem;
+  line-height: 1.5;
   color: var(--default-color);
 }
 
@@ -42,8 +43,8 @@ button {
 
 .button {
   font-size: 1.6rem;
-  padding: 0.6rem 1rem;
-  border-radius: 1.6rem;
+  padding: 0.8rem 1rem;
+  border-radius: 1.8rem;
 }
 
 @media (hover: hover) {
@@ -58,7 +59,7 @@ button {
 }
 
 .button--filled {
-  padding: 0.8rem 1rem;
+  padding: 1rem;
   color: var(--reverse-color);
   background-color: var(--primary-color);
 }
@@ -101,7 +102,7 @@ button {
 }
 
 .logo {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   font-weight: 500;
   color: var(--primary-color);
 }
@@ -129,12 +130,12 @@ button {
 .text-input {
   display: flex;
   align-items: center;
-  padding: 0.8rem 1.6rem;
+  padding: 1rem 1.6rem;
   box-sizing: border-box;
   font: inherit;
   font-size: 1.6rem;
   border: 0.1rem solid var(--light-color);
-  border-radius: 1.6rem;
+  border-radius: 1.8rem;
 }
 
 .text-input--focus {
@@ -144,7 +145,12 @@ button {
 .text-input .input {
   flex-grow: 1;
   padding: 0;
+  font-size: inherit;
   border: none;
+}
+
+.text-input .input::placeholder {
+  color: var(--secondary-color);
 }
 
 .text-input .input:focus {
@@ -152,7 +158,7 @@ button {
 }
 
 .text-input--search::after {
-  content: "\F52A";
+  content: '\F52A';
   font-family: bootstrap-icons !important;
   font-size: 1.7rem;
   color: var(--primary-color);
@@ -163,7 +169,7 @@ button {
   grid-template-columns: repeat(3, 1fr);
   box-sizing: border-box;
   border: 0.1rem solid var(--light-color);
-  border-radius: 1.6rem;
+  border-radius: 1.8rem;
 }
 
 .toggle-group .button {
@@ -196,7 +202,7 @@ button {
   gap: 1.6rem;
   padding: 1.6rem 2rem;
   border: 0.1rem solid var(--light-color);
-  border-radius: 1.6rem;
+  border-radius: 1.8rem;
   transition: box-shadow 0.2s;
   cursor: pointer;
   animation: fadeEnter 300ms ease-in-out;
@@ -282,13 +288,14 @@ button {
 }
 
 .add-todo__show-form-button {
-  grid-template-columns: 1fr;
+  display: flex;
   justify-items: center;
-  padding: 1.2rem 1.4rem;
+  justify-content: center;
+  padding: 1.4rem 1.4rem;
   color: var(--primary-color);
-  font-size: 1.9rem;
+  font-size: 1.8rem;
   border: 0.1rem solid var(--light-color);
-  border-radius: 1.6rem;
+  border-radius: 1.8rem;
   transition: box-shadow 0.2s;
 }
 
@@ -307,12 +314,13 @@ button {
 
 .add-todo__form {
   border: 0.1rem solid var(--light-color);
-  border-radius: 1.6rem;
+  border-radius: 1.8rem;
 }
 
 .add-todo__form .close-button {
   justify-self: end;
-  font-size: 2rem;
+  font-size: 2.2rem;
+  padding: 0.2rem;
 }
 
 @media (hover: hover) {
@@ -322,7 +330,6 @@ button {
 }
 
 .app-footer {
-  font-size: 1.4rem;
   text-align: center;
   color: var(--secondary-color);
 }
@@ -342,11 +349,11 @@ button {
 }
 
 .profile__name {
-  color: var(--primary-color);
+  color: var(--default-color);
 }
 
 .profile__logout-button {
-  color: var(--dark-color);
+  color: var(--primary-color);
 }
 
 .notifications {
@@ -372,11 +379,11 @@ button {
 
 .notification__text {
   padding: 9px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: var(--primary-color);
 }
 
 .notification__close-button {
-  font-size: 20px;
+  font-size: 2rem;
   color: var(--primary-color);
 }

@@ -1,1 +1,1 @@
-export { Tasks } from "./ui/tasks.page";
+export { Tasks } from './ui/tasks.page'

@@ -1,23 +1,23 @@
-import { useTasksStore } from "@/entities/task";
-import { TaskItem } from "./task-item";
-import { useToggleTask } from "@/features/toggle-task";
-import { useRemoveTask } from "@/features/remove-task";
-import { useEffect } from "react";
-import { useFilteredTasks } from "@/features/filter-tasks";
+import { useTasksStore } from '@/entities/task'
+import { TaskItem } from './task-item'
+import { useToggleTask } from '@/features/toggle-task'
+import { useRemoveTask } from '@/features/remove-task'
+import { useEffect } from 'react'
+import { useFilteredTasks } from '@/features/filter-tasks'
 
 export const TaskList = () => {
   const tasks = useFilteredTasks()
-  const toggleTask = useToggleTask();
-  const removeTask = useRemoveTask();
+  const toggleTask = useToggleTask()
+  const removeTask = useRemoveTask()
 
-  const loadTasks = useTasksStore((s) => s.loadTasks);
+  const loadTasks = useTasksStore((s) => s.loadTasks)
 
   useEffect(() => {
-    loadTasks();
-  }, [loadTasks]);
+    loadTasks()
+  }, [loadTasks])
 
   return (
-    <ul className="todo-list">
+    <ul className='todo-list'>
       {tasks.map((task) => {
         return (
           <TaskItem
@@ -26,8 +26,8 @@ export const TaskList = () => {
             onToggle={() => toggleTask(task)}
             onRemove={() => removeTask(task)}
           />
-        );
+        )
       })}
     </ul>
-  );
-};
+  )
+}

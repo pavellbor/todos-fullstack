@@ -1,40 +1,42 @@
-import { Button } from "@/shared/ui/button";
-import { TextInput } from "@/shared/ui/text-input";
-import { useState } from "react";
-import { useSignUp } from "../model/use-sign-up";
+import { Button } from '@/shared/ui/button'
+import { TextInput } from '@/shared/ui/text-input'
+import { useState } from 'react'
+import { useSignUp } from '../model/use-sign-up'
 
 export const SignUpForm = () => {
   const [formData, setFormData] = useState<{
-    username: string;
-    password: string;
+    username: string
+    password: string
   }>({
-    username: "",
-    password: "",
-  });
+    username: '',
+    password: '',
+  })
 
-  const signIn = useSignUp();
+  const signIn = useSignUp()
 
   return (
     <form
-      className="auth__form"
+      className='auth__form'
       onSubmit={(e) => {
-        e.preventDefault();
-        signIn(formData);
-      }}
-    >
+        e.preventDefault()
+        signIn(formData)
+      }}>
       <TextInput
         value={formData.username}
-        placeholder="username"
+        placeholder='username'
         isFocused
         onChange={(username) => setFormData({ ...formData, username })}
       />
       <TextInput
-        type="password"
+        type='password'
         value={formData.password}
-        placeholder="password"
+        placeholder='password'
         onChange={(password) => setFormData({ ...formData, password })}
       />
-      <Button text="Sign Up" isFilled />
+      <Button
+        text='Sign Up'
+        isFilled
+      />
     </form>
-  );
-};
+  )
+}

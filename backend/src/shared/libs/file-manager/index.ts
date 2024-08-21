@@ -1,25 +1,25 @@
-import fs from "node:fs";
+import fs from 'node:fs'
 
 export class FileManager<T> {
   constructor(
     private readonly file: string,
-    private readonly encoding: BufferEncoding = "utf-8"
+    private readonly encoding: BufferEncoding = 'utf-8',
   ) {}
 
   public write(data: T) {
-    const stringifiedData = JSON.stringify(data);
-    fs.writeFileSync(this.file, stringifiedData, this.encoding);
+    const stringifiedData = JSON.stringify(data)
+    fs.writeFileSync(this.file, stringifiedData, this.encoding)
   }
 
   public read(): T | null {
     if (!fs.existsSync(this.file)) {
       return null
     }
-    
-    const stringifiedData = fs.readFileSync(this.file, this.encoding);
+
+    const stringifiedData = fs.readFileSync(this.file, this.encoding)
     if (!stringifiedData) {
-      return null;
+      return null
     }
-    return JSON.parse(stringifiedData);
+    return JSON.parse(stringifiedData)
   }
 }

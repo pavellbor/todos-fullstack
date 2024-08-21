@@ -1,10 +1,10 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
 export class TokenService<T extends JwtPayload> {
   constructor(private readonly secretKey: string) {}
 
   public generateToken(payload: T) {
-    return jwt.sign(payload, this.secretKey);
+    return jwt.sign(payload, this.secretKey)
   }
 
   public verifyToken(token: string) {

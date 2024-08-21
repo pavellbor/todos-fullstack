@@ -1,6 +1,6 @@
-import { StatusCodes } from "http-status-codes";
-import { HttpError, HttpException } from "../http-client.errors";
-import { ContentType, Response } from "../http-client.types";
+import { StatusCodes } from 'http-status-codes'
+import { HttpError, HttpException } from '../http-client.errors'
+import { ContentType, Response } from '../http-client.types'
 
 export class ExceptionFilter {
   public handleException(res: Response, exception: unknown) {
@@ -10,24 +10,24 @@ export class ExceptionFilter {
         data: {
           message: exception.data,
         },
-      });
+      })
 
-      console.error(exception);
+      console.error(exception)
     } else if (exception instanceof HttpException) {
       this.sendResponse(res, {
         statusCode: exception.statusCode,
         contentType: exception.contentType,
         data: exception.data,
-      });
+      })
     } else {
       this.sendResponse(res, {
         statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
         data: {
-          message: "Неизвестная ошибка. Попробуйте позже",
+          message: 'Неизвестная ошибка. Попробуйте позже',
         },
-      });
+      })
 
-      console.error(exception);
+      console.error(exception)
     }
   }
 
@@ -35,22 +35,22 @@ export class ExceptionFilter {
     res: Response,
     {
       statusCode,
-      contentType = "application/json",
+      contentType = 'application/json',
       data,
     }: {
-      statusCode: StatusCodes;
-      contentType?: ContentType;
-      data?: unknown;
-    }
+      statusCode: StatusCodes
+      contentType?: ContentType
+      data?: unknown
+    },
   ) {
     res.writeHead(statusCode, {
-      "Content-Type": contentType,
-    });
+      'Content-Type': contentType,
+    })
 
     if (data) {
-      res.end(contentType === "application/json" ? JSON.stringify(data) : data);
+      res.end(contentType === 'application/json' ? JSON.stringify(data) : data)
     } else {
-      res.end();
+      res.end()
     }
   }
 }
