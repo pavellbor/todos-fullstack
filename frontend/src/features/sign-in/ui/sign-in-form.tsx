@@ -31,6 +31,7 @@ export const SignInForm = () => {
       <TextInput
         value={formData.password}
         placeholder="password"
+        type="password"
         onChange={(password) => setFormData({ ...formData, password })}
       />
       <Button text="Sign In" isFilled />

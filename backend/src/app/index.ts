@@ -9,7 +9,7 @@ import { createTodoController } from "../modules/todo";
 import { createReturnStaticFilesMiddleware } from "../shared/libs/http-client/http-client.middlewares";
 import { createEntryPointController } from "../modules/entry-point";
 
-const bootsrap = () => {
+const bootstrap = () => {
   const configService = new ConfigService<{
     PORT: string;
     PUBLIC_DIR_PATH: string;
@@ -33,4 +33,4 @@ const bootsrap = () => {
   httpClient.start(+configService.get("PORT"));
 };
 
-bootsrap();
+bootstrap();

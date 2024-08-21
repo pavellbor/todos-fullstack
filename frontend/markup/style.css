@@ -1,4 +1,3 @@
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
 
 :root {
@@ -36,6 +35,7 @@ a {
 button {
   padding: 0;
   font: inherit;
+  color: unset;
   background-color: transparent;
   border: none;
 }
@@ -46,8 +46,10 @@ button {
   border-radius: 1.6rem;
 }
 
-.button:hover {
-  opacity: 0.8;
+@media (hover: hover) {
+  .button:hover {
+    opacity: 0.8;
+  }
 }
 
 .button--primary {
@@ -95,7 +97,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.6rem;
+  padding: 3.2rem;
 }
 
 .logo {
@@ -112,8 +114,10 @@ button {
   color: var(--primary-color);
 }
 
-.burger:hover {
-  color: var(--primary-color);
+@media (hover: hover) {
+  .burger:hover {
+    color: var(--primary-color);
+  }
 }
 
 .app-filters {
@@ -166,8 +170,10 @@ button {
   font-size: 1.6rem;
 }
 
-.toggle-group .button:not(.button--primary):hover {
-  color: var(--primary-color);
+@media (hover: hover) {
+  .toggle-group .button:not(.button--primary):hover {
+    color: var(--primary-color);
+  }
 }
 
 .app-main {
@@ -196,8 +202,10 @@ button {
   animation: fadeEnter 300ms ease-in-out;
 }
 
-.todo-item:hover {
-  box-shadow: 0px 1px 20px rgb(240 240 240 / 80%);
+@media (hover: hover) {
+  .todo-item:hover {
+    box-shadow: 0px 1px 20px rgb(240 240 240 / 80%);
+  }
 }
 
 .todo-item__text {
@@ -237,8 +245,10 @@ button {
   opacity: 1;
 }
 
-.todo-item:hover .todo-item__status {
-  opacity: 1;
+@media (hover: hover) {
+  .todo-item:hover .todo-item__status {
+    opacity: 1;
+  }
 }
 
 .todo-item--done .todo-item__status .bi-check2 {
@@ -246,17 +256,24 @@ button {
 }
 
 .todo-item__remove-button {
-  opacity: 0;
   color: var(--secondary-color);
-  transition: opacity 0.2s;
 }
 
-.todo-item:hover .todo-item__remove-button {
-  opacity: 1;
+@media (hover: hover) {
+  .todo-item__remove-button {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .todo-item:hover .todo-item__remove-button {
+    opacity: 1;
+  }
 }
 
-.todo-item__remove-button:hover {
-  color: var(--primary-color);
+@media (hover: hover) {
+  .todo-item__remove-button:hover {
+    color: var(--primary-color);
+  }
 }
 
 .add-todo {
@@ -275,8 +292,10 @@ button {
   transition: box-shadow 0.2s;
 }
 
-.add-todo__show-form-button:hover {
-  box-shadow: 0px 1px 20px rgb(240 240 240 / 80%);
+@media (hover: hover) {
+  .add-todo__show-form-button:hover {
+    box-shadow: 0px 1px 20px rgb(240 240 240 / 80%);
+  }
 }
 
 .auth__form,
@@ -284,9 +303,11 @@ button {
   display: grid;
   gap: 1.6rem;
   padding: 1.4rem 1.6rem 2rem;
+}
+
+.add-todo__form {
   border: 0.1rem solid var(--light-color);
   border-radius: 1.6rem;
-  box-shadow: 0px 1px 20px rgb(240 240 240 / 80%);
 }
 
 .add-todo__form .close-button {
@@ -294,8 +315,10 @@ button {
   font-size: 2rem;
 }
 
-.add-todo__form .close-button:hover {
-  color: var(--primary-color);
+@media (hover: hover) {
+  .add-todo__form .close-button:hover {
+    color: var(--primary-color);
+  }
 }
 
 .app-footer {

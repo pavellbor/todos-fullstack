@@ -17,10 +17,10 @@ export const useLoader = (minVisibleTimeInMS = MIN_VISIBLE_TIME_IN_MS) => {
     if (isHidingEarly) {
       setIsVisible(false);
     } else {
-      const hiddingTime = timestampRef.current! + minVisibleTimeInMS - Date.now();
-      setTimeout(() => hideLoader(), hiddingTime);
+      const hidingTime = timestampRef.current! + minVisibleTimeInMS - Date.now();
+      setTimeout(() => hideLoader(), hidingTime);
     }
-  }, []);
+  }, [minVisibleTimeInMS]);
 
   return {
     isVisible,

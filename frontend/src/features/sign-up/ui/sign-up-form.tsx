@@ -29,6 +29,7 @@ export const SignUpForm = () => {
         onChange={(username) => setFormData({ ...formData, username })}
       />
       <TextInput
+        type="password"
         value={formData.password}
         placeholder="password"
         onChange={(password) => setFormData({ ...formData, password })}
