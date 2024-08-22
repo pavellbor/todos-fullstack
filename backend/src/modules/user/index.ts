@@ -6,6 +6,7 @@ import { UserController } from './user.controller'
 import { UserService } from './user.service'
 import { User, TokenPayload, UserConfigSchema } from './user.types'
 import { ConfigService } from '../../shared/libs/config-service'
+import { HashingService } from '../../shared/libs/hashing-service'
 export { VerifyRdo, User } from './user.types'
 
 export const createUserService = () => {
@@ -15,7 +16,8 @@ export const createUserService = () => {
   )
   const databaseClient = new DatabaseClient<User>(fileManager)
   const tokenService = new TokenService<TokenPayload>(configService.get('TOKEN_SECRET_KEY'))
-  const userService = new UserService(databaseClient, tokenService)
+  const hashingService = new HashingService(+configService.get('PASSWORD_SALT_ROUNDS'))
+  const userService = new UserService(databaseClient, tokenService, hashingService)
 
   return userService
 }

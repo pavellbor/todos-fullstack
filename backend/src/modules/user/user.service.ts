@@ -12,11 +12,13 @@ import {
   VerifyDto,
   VerifyRdo,
 } from './user.types'
+import { HashingService } from '../../shared/libs/hashing-service'
 
 export class UserService {
   constructor(
     private readonly databaseClient: DatabaseClient<User>,
     private readonly tokenService: TokenService<TokenPayload>,
+    private readonly hashingService: HashingService,
   ) {}
 
   public login(loginDto: LoginDto): LoginRdo {
@@ -37,7 +39,7 @@ export class UserService {
 
     this.databaseClient.add({
       username: registerDto.username,
-      password: registerDto.password,
+      passwordHash: this.createPasswordHash(registerDto.password),
     })
 
     const newUser = this.getUserByUsername(registerDto.username)!
@@ -66,7 +68,7 @@ export class UserService {
   private authenticate(username: string, password: string) {
     const user = this.getUserByUsername(username)
 
-    return user && user.password === password
+    return user && this.comparePasswordWithHash(password, user.passwordHash)
   }
 
   private getUserByUsername(username: string) {
@@ -81,5 +83,13 @@ export class UserService {
   private verifyToken(token: string) {
     const decoded = this.tokenService.verifyToken(token)
     return decoded.id
+  }
+
+  private createPasswordHash(password: string) {
+    return this.hashingService.hash(password)
+  }
+
+  private comparePasswordWithHash(password: string, hash: string) {
+    return this.hashingService.compare(password, hash)
   }
 }

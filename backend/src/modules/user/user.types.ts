@@ -1,7 +1,7 @@
 export type User = {
   id: string
   username: string
-  password: string
+  passwordHash: string
 }
 
 export type TokenPayload = {
@@ -39,4 +39,5 @@ export type VerifyRdo = {
 export type UserConfigSchema = {
   DB_USERS_PATH: string
   TOKEN_SECRET_KEY: string
+  PASSWORD_SALT_ROUNDS: string
 }
