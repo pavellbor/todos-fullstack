@@ -4,10 +4,10 @@ import { AppRouter } from './app-router'
 
 export const App = () => {
   return (
-    <AppLoader>
-      <AppProvider>
+    <AppProvider>
+      <AppLoader>
         <AppRouter />
-      </AppProvider>
-    </AppLoader>
+      </AppLoader>
+    </AppProvider>
   )
 }

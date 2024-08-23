@@ -22,9 +22,9 @@ export const TaskForm = () => {
       {isFormVisible && (
         <form
           className='add-todo__form'
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault()
-            addTask(formData)
+            await addTask(formData)
             setFormData({ title: '' })
           }}>
           <Button

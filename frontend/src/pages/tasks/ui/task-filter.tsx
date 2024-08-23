@@ -4,6 +4,7 @@ import clsx from 'clsx'
 
 export const TaskFilter = () => {
   const tasks = useTasksStore((s) => s.tasks)
+  const hasCompletedTask = tasks.some((x) => x.completed)
   const filter = useTaskFilterStore((s) => s.filter)
   const setFilter = useTaskFilterStore((s) => s.setFilter)
 
@@ -13,7 +14,7 @@ export const TaskFilter = () => {
     { key: 'done', label: 'Done' },
   ] as const
 
-  return tasks.length ?
+  return hasCompletedTask ?
       <aside className='app-filters'>
         <section className='toggle-group'>
           {filters.map(({ key, label }) => (

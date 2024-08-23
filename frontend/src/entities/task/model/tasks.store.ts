@@ -21,15 +21,15 @@ export const useTasksStore = create(
       },
       createTask: async (data) => {
         await tasksApi.createTask(data)
-        get().loadTasks()
+        await get().loadTasks()
       },
       updateTask: async (id: string, data) => {
         await tasksApi.updateTask(id, data)
-        get().loadTasks()
+        await get().loadTasks()
       },
       removeTask: async (id) => {
         await tasksApi.removeTask(id)
-        get().loadTasks()
+        await get().loadTasks()
       },
     }),
     { name: 'tasks', store: 'tasks' },

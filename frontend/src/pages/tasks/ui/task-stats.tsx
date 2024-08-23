@@ -7,8 +7,10 @@ export const TaskStats = () => {
   const activeCount = tasks.length - doneCount
 
   return (
-    <footer className='app-footer'>
-      {activeCount} more to do, {doneCount} done
-    </footer>
+    tasks.length > 0 && (
+      <footer className='app-footer'>
+        {activeCount} more to do, {doneCount} done
+      </footer>
+    )
   )
 }
