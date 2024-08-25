@@ -66,7 +66,7 @@ export class DatabaseClient<T> {
 
   private throwErrorIfItemNotExists(id: string) {
     if (!this.data[id]) {
-      throw new Error(`Записи c id "${id}" не сущеcтвует`)
+      throw new Error(`Записи c id "${id}" не существует`)
     }
   }
 }

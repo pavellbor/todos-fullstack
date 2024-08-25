@@ -13,29 +13,62 @@ import {
   VerifyRdo,
 } from './user.types'
 import { HashingService } from '../../shared/libs/hashing-service'
+import { LoggerService } from '../../shared/libs/logger-service'
 
 export class UserService {
   constructor(
     private readonly databaseClient: DatabaseClient<User>,
     private readonly tokenService: TokenService<TokenPayload>,
     private readonly hashingService: HashingService,
+    private readonly loggerService: LoggerService,
   ) {}
 
   public login(loginDto: LoginDto): LoginRdo {
+    this.loggerService.info({
+      source: this.constructor.name,
+      message: `Аноним пытается войти под ником "${loginDto.username}"`,
+    })
+
     if (this.authenticate(loginDto.username, loginDto.password)) {
       const user = this.getUserByUsername(loginDto.username)!
+
+      this.loggerService.warn({
+        source: this.constructor.name,
+        message: `Пользователь "${loginDto.username}" успешно вошел`,
+      })
+
       return { token: this.generateToken(user.id) }
     }
+
+    this.loggerService.warn({
+      source: this.constructor.name,
+      message: `Аноним ввел неправильное имя пользователя или пароль`,
+    })
 
     throw new HttpError(StatusCodes.UNAUTHORIZED, 'Неправильное имя пользователя или пароль')
   }
 
   public register(registerDto: RegisterDto): RegisterRdo {
+    this.loggerService.info({
+      source: this.constructor.name,
+      message: `Аноним пытается зарегистрироваться`,
+    })
+
     const existsUser = this.getUserByUsername(registerDto.username)
 
     if (existsUser) {
+      this.loggerService.warn({
+        source: this.constructor.name,
+        message: `Аноним пытается зарегистрироваться под существующим именем "${registerDto.username}"`,
+      })
+
       throw new HttpError(StatusCodes.BAD_REQUEST, 'Пользователь с таким именем уже существует')
     }
+
+    this.loggerService.info({
+      source: this.constructor.name,
+      message: `Пользователь "${registerDto.username}" зарегистрировался`,
+    })
 
     this.databaseClient.add({
       username: registerDto.username,
@@ -55,12 +88,21 @@ export class UserService {
       const id = this.verifyToken(verifyDto.token)
       const user = this.databaseClient.getById(id)
 
+      this.loggerService.info({
+        source: this.constructor.name,
+        message: `Успешная проверка токена для пользователя "${user.username}"`,
+      })
+
       return {
         id: user.id,
         username: user.username,
       }
     } catch (error) {
-      console.error(error)
+      this.loggerService.warn({
+        source: this.constructor.name,
+        message: `Использован неверный токен авторизации: ${verifyDto.token}`,
+      })
+
       throw new HttpError(StatusCodes.UNAUTHORIZED, 'Неверный токен авторизации')
     }
   }

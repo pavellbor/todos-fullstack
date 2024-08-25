@@ -2,10 +2,14 @@ import { UserService } from './user.service'
 import { StatusCodes } from 'http-status-codes'
 import { HttpController, Request, Response } from '../../shared/libs/http-client'
 import { validateLoginBodyMiddleware, validateRegisterBodyMiddleware } from './user.middlewares'
+import { LoggerService } from '../../shared/libs/logger-service'
 
 export class UserController extends HttpController {
-  constructor(private readonly userService: UserService) {
-    super()
+  constructor(
+    private readonly userService: UserService,
+    protected readonly loggerService: LoggerService,
+  ) {
+    super(loggerService)
 
     this.registerRoute({
       pathname: '/api/login',
@@ -47,7 +51,7 @@ export class UserController extends HttpController {
   }
 
   private async onVerify(req: Request, res: Response) {
-    const token = this.getAuthorizatonToken(req)
+    const token = this.getAuthorizationToken(req)
     const user = this.userService.verify({ token })
 
     this.sendResponse(res, {

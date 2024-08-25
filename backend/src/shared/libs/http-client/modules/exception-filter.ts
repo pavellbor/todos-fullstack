@@ -1,8 +1,11 @@
 import { StatusCodes } from 'http-status-codes'
 import { HttpError, HttpException } from '../http-client.errors'
 import { ContentType, Response } from '../http-client.types'
+import { LoggerService } from '../../logger-service'
 
 export class ExceptionFilter {
+  constructor(private readonly loggerService: LoggerService) {}
+
   public handleException(res: Response, exception: unknown) {
     if (exception instanceof HttpError) {
       this.sendResponse(res, {
@@ -11,8 +14,6 @@ export class ExceptionFilter {
           message: exception.data,
         },
       })
-
-      console.error(exception)
     } else if (exception instanceof HttpException) {
       this.sendResponse(res, {
         statusCode: exception.statusCode,
@@ -20,14 +21,18 @@ export class ExceptionFilter {
         data: exception.data,
       })
     } else {
+      const statusCode = StatusCodes.INTERNAL_SERVER_ERROR
+      const message = 'Неизвестная ошибка. Попробуйте позже'
       this.sendResponse(res, {
-        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-        data: {
-          message: 'Неизвестная ошибка. Попробуйте позже',
-        },
+        statusCode,
+        data: { message },
       })
 
-      console.error(exception)
+      this.loggerService.error({
+        source: `${this.constructor.name}`,
+        message: `${statusCode}: ${message}`,
+        metadata: (exception as Error).stack,
+      })
     }
   }
 

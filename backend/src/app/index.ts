@@ -8,17 +8,20 @@ import { ConfigService } from '../shared/libs/config-service'
 import { createTodoController } from '../modules/todo'
 import { createReturnStaticFilesMiddleware } from '../shared/libs/http-client/http-client.middlewares'
 import { createEntryPointController } from '../modules/entry-point'
+import { LoggerService } from '../shared/libs/logger-service'
 
 const bootstrap = () => {
   const configService = new ConfigService<{
     PORT: string
     PUBLIC_DIR_PATH: string
+    LOGS_PATH: string
   }>()
-  const httpClient = new HttpClient()
+  const loggerService = new LoggerService(configService.get('LOGS_PATH'))
+  const httpClient = new HttpClient(loggerService)
 
-  const entryPointController = createEntryPointController()
-  const userController = createUserController()
-  const todoController = createTodoController(createUserService())
+  const entryPointController = createEntryPointController(loggerService)
+  const userController = createUserController(loggerService)
+  const todoController = createTodoController(createUserService(loggerService), loggerService)
 
   httpClient.registerGlobalMiddlewares([
     setCORSHeadersMiddleware,

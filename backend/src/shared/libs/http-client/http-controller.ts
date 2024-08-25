@@ -1,9 +1,12 @@
 import { StatusCodes } from 'http-status-codes'
 import { ContentType, Request, Response, Route } from './http-client.types'
 import { HttpError } from './http-client.errors'
+import { LoggerService } from '../logger-service'
 
 export class HttpController {
   protected routes: Route[] = []
+
+  constructor(protected readonly loggerService: LoggerService) {}
 
   public getRoutes() {
     return this.routes
@@ -30,13 +33,15 @@ export class HttpController {
     })
 
     if (data) {
-      res.end(contentType === 'application/json' ? JSON.stringify(data) : data)
+      const stringifiedData = contentType === 'application/json' ? JSON.stringify(data) : data
+
+      res.end(stringifiedData)
     } else {
       res.end()
     }
   }
 
-  protected getAuthorizatonToken(req: Request) {
+  protected getAuthorizationToken(req: Request) {
     const authHeader = req.headers.authorization
 
     if (!authHeader) {

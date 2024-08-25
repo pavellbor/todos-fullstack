@@ -4,13 +4,15 @@ import { HttpController } from './http-controller'
 import { MiddlewareService } from './modules/middleware-service'
 import { RouteService } from './modules/route-service'
 import { ExceptionFilter } from './modules/exception-filter'
+import { LoggerService } from '../logger-service'
 
 export class HttpClient {
   constructor(
+    private readonly loggerService: LoggerService,
     private readonly server = http.createServer(),
     private readonly middlewareService = new MiddlewareService(),
     private readonly routeService = new RouteService(),
-    private readonly exceptionFilter = new ExceptionFilter(),
+    private readonly exceptionFilter = new ExceptionFilter(loggerService),
   ) {}
 
   public registerGlobalMiddlewares(middlewares: Middleware[]) {
@@ -29,14 +31,30 @@ export class HttpClient {
 
   private listen(port: number) {
     this.server.listen(port, () => {
-      console.log(`Сервер запущен на порту ${port}`)
+      this.loggerService.info({
+        source: this.constructor.name,
+        message: `Сервер запущен на порту ${port}`,
+      })
     })
   }
 
   private async setListeners() {
     this.server.on('request', async (req: Request, res: Response) => {
       try {
+        this.loggerService.info({
+          source: `${this.constructor.name}`,
+          message: `${req.method}: ${req.url}`,
+        })
+
         await this.middlewareService.execMiddlewares(req, res)
+
+        if (req.body) {
+          this.loggerService.info({
+            source: `${this.constructor.name}`,
+            message: `req.body: ${JSON.stringify(req.body)}`,
+          })
+        }
+
         await this.routeService.getRouteAndHandle(req, res)
       } catch (exception) {
         this.exceptionFilter.handleException(res, exception)
